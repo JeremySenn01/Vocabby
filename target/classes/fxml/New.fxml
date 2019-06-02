@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -11,11 +11,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbw.senn.Vocabby.controller.NewController">
    <children>
       <TextField fx:id="tfOriginal" layoutX="277.0" layoutY="157.0" prefHeight="27.0" prefWidth="279.0" promptText="Baum" />
       <TextField fx:id="tfTranslated" layoutX="277.0" layoutY="195.0" prefHeight="27.0" prefWidth="279.0" promptText="tree" />
-      <Button fx:id="btCreateSet" layoutX="556.0" layoutY="444.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="133.0" text="Create Set" />
+      <Button fx:id="btCreateSet" layoutX="556.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleCreateSet" prefHeight="42.0" prefWidth="133.0" text="Create Set" />
       <MenuBar fx:id="mbMenu" prefHeight="29.0" prefWidth="750.0">
          <menus>
             <Menu fx:id="mFile" mnemonicParsing="false" text="File">
@@ -59,8 +59,13 @@
          </font>
       </Text>
       <ListView fx:id="lvTerms" layoutX="77.0" layoutY="235.0" prefHeight="201.0" prefWidth="612.0" />
-      <Button fx:id="btAddTerm" layoutX="579.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" text="Add Term" />
-      <Button fx:id="btCancel" layoutX="77.0" layoutY="444.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="133.0" text="Cancel" />
-      <Button fx:id="btRemoveTerm" layoutX="579.0" layoutY="195.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" text="remove Term" />
+      <Button fx:id="btAddTerm" layoutX="579.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleAddTerm" prefHeight="27.0" prefWidth="108.0" text="Add Term" />
+      <Button fx:id="btCancel" layoutX="77.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="42.0" prefWidth="133.0" text="Cancel" />
+      <Button fx:id="btRemoveTerm" layoutX="579.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleRemoveTerm" prefHeight="27.0" prefWidth="108.0" text="remove Term" />
+      <Text fx:id="tError" fill="RED" layoutX="248.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="269.9999953508377">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

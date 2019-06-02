@@ -1,4 +1,4 @@
-package ch.bbw.senn.Vocabby;
+package ch.bbw.senn.Vocabby.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

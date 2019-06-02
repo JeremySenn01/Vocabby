@@ -10,16 +10,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbw.senn.Vocabby.controller.MainController">
    <children>
       <Text fx:id="tUsername" fill="#2c5ccd" layoutX="71.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="431.21875">
          <font>
             <Font name="Baskerville" size="51.0" />
          </font>
       </Text>
-      <Button fx:id="btNewSet" layoutX="545.0" layoutY="42.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="123.0" text="New Set" />
-      <Line endX="292.5" layoutX="375.0" layoutY="121.0" startX="-304.0" />
-      <ListView fx:id="lvSets" layoutX="71.0" layoutY="141.0" prefHeight="323.0" prefWidth="597.0" />
+      <Button fx:id="btNewSet" layoutX="545.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleNewSet" prefHeight="58.0" prefWidth="123.0" text="New Set" />
+      <Line endX="317.0" layoutX="375.0" layoutY="121.0" startX="-304.0" />
+      <ListView fx:id="lvSets" layoutX="85.0" layoutY="141.0" prefHeight="323.0" prefWidth="597.0" />
       <MenuBar fx:id="mbMenu" layoutX="-4.0" prefHeight="29.0" prefWidth="750.0">
         <menus>
           <Menu fx:id="mFile" mnemonicParsing="false" text="File">

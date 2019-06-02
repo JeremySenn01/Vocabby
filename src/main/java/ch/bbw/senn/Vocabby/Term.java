@@ -26,5 +26,10 @@ public class Term {
 	public void setTranslated(String translated) {
 		this.translated = translated;
 	}
+	
+	@Override
+	public String toString() {
+		return this.original + " => " + this.translated; 
+	}
 
 }

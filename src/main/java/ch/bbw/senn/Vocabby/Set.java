@@ -6,14 +6,16 @@ import java.util.List;
 public class Set {
 
 	private String name;
+	private String theme;
 	private LocalDate creationDate;
 	private List<Term> terms;
 
-	public Set(String name, LocalDate creationDate, List<Term> terms) {
+	public Set(String name, String theme, LocalDate creationDate, List<Term> terms) {
 		super();
 		this.name = name;
 		this.creationDate = creationDate;
 		this.terms = terms;
+		this.theme = theme;
 	}
 
 	public String getName() {
@@ -38,6 +40,14 @@ public class Set {
 
 	public void setTerms(List<Term> terms) {
 		this.terms = terms;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
 	}
 
 	public void addTerm(Term set) {
