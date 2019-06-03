@@ -8,6 +8,7 @@ import ch.bbw.senn.Vocabby.ViewLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -16,7 +17,7 @@ public class LoginController implements Initializable {
 	@FXML
 	private TextField tfUsername;
 	@FXML
-	private TextField tfPassword;
+	private PasswordField tfPassword;
 	@FXML
 	private Button btLogin;
 	@FXML

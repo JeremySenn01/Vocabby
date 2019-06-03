@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
 public class StudyController implements Initializable {
@@ -34,6 +35,8 @@ public class StudyController implements Initializable {
 	private Text tDate;
 	@FXML
 	private Label lbProgress;
+	@FXML
+	private ProgressBar pbProgress;
 
 	private List<Term> terms;
 	private boolean showOriginalFirst;
@@ -47,8 +50,13 @@ public class StudyController implements Initializable {
 
 	public void initController(Set set) {
 		if (set.getTerms() != null) {
+
 			this.terms = set.getTerms();
 			currentTerm = this.terms.get(0);
+			tDate.setText(set.getCreationDate().toString());
+			tTitle.setText(set.getName());
+			tTheme.setText(set.getTheme());
+
 			this.setCorrectCardSide();
 			this.setProgress();
 		}
@@ -57,20 +65,21 @@ public class StudyController implements Initializable {
 	private void setProgress() {
 		int currentIndex = terms.indexOf(this.currentTerm) + 1;
 		this.progress = (100 / terms.size()) * currentIndex;
-		if (currentIndex != terms.size()-1) {
-			lbProgress.setText(this.progress + "%");			
-		}
-		else {
+		if (currentIndex != terms.size()) {
+			lbProgress.setText(this.progress + "%");
+			pbProgress.setProgress((double) this.progress / 100);
+		} else {
 			lbProgress.setText("100%");
+			pbProgress.setProgress(1.0);
 		}
+		System.out.println(currentIndex + " / " + this.terms.size());
 	}
 
 	private void setCorrectCardSide() {
 		if (showOriginalFirst) {
 			lbTerm.setText(currentTerm.getOriginal());
-		}
-		else {
-			lbTerm.setText(currentTerm.getTranslated());			
+		} else {
+			lbTerm.setText(currentTerm.getTranslated());
 		}
 	}
 
