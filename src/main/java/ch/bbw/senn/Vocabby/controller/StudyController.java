@@ -40,12 +40,14 @@ public class StudyController implements Initializable {
 
 	private List<Term> terms;
 	private boolean showOriginalFirst;
+	private boolean showCurrentOriginal;
 	private Term currentTerm;
 	private int progress;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		showOriginalFirst = true;
+		showCurrentOriginal = true;
 	}
 
 	public void initController(Set set) {
@@ -57,8 +59,15 @@ public class StudyController implements Initializable {
 			tTitle.setText(set.getName());
 			tTheme.setText(set.getTheme());
 
-			this.setCorrectCardSide();
 			this.setProgress();
+		}
+	}
+	
+	private void showCardText() {
+		if (showCurrentOriginal) {
+			lbTerm.setText(currentTerm.getOriginal());
+		} else {
+			lbTerm.setText(currentTerm.getTranslated());
 		}
 	}
 
@@ -72,16 +81,8 @@ public class StudyController implements Initializable {
 			lbProgress.setText("100%");
 			pbProgress.setProgress(1.0);
 		}
-		System.out.println(currentIndex + " / " + this.terms.size());
 	}
 
-	private void setCorrectCardSide() {
-		if (showOriginalFirst) {
-			lbTerm.setText(currentTerm.getOriginal());
-		} else {
-			lbTerm.setText(currentTerm.getTranslated());
-		}
-	}
 
 	@FXML
 	private void handlePrevious() {
@@ -91,7 +92,14 @@ public class StudyController implements Initializable {
 		} else if (currentIndex == 0) {
 			this.currentTerm = terms.get(terms.size() - 1);
 		}
-		this.setCorrectCardSide();
+		
+		if (showOriginalFirst) {
+			showCurrentOriginal = true;
+		}
+		else {
+			showCurrentOriginal = false;
+		}
+		this.showCardText();
 		this.setProgress();
 	}
 
@@ -103,24 +111,32 @@ public class StudyController implements Initializable {
 		} else if (currentIndex == terms.size() - 1) {
 			this.currentTerm = terms.get(0);
 		}
-		this.setCorrectCardSide();
+		if (showOriginalFirst) {
+			showCurrentOriginal = true;
+		}
+		else {
+			showCurrentOriginal = false;
+		}
+		this.showCardText();
 		this.setProgress();
 	}
 
 	@FXML
 	private void handleFlipCurrent() {
-		this.showOriginalFirst = !this.showOriginalFirst;
-		this.setCorrectCardSide();
+		this.showCurrentOriginal = !this.showCurrentOriginal;
+		this.showCardText();
 	}
 
 	@FXML
 	private void handleFlipAll() {
-
+		this.showOriginalFirst = !this.showOriginalFirst;
+		this.showCurrentOriginal = !this.showCurrentOriginal;
+		this.showCardText();
 	}
 
 	@FXML
 	private void handleCancel() {
-
+		this.btCancel.getScene().getWindow().hide();
 	}
 
 }

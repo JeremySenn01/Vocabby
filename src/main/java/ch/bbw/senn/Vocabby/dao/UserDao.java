@@ -11,7 +11,7 @@ import ch.bbw.senn.Vocabby.User;
 public class UserDao implements IDao<User> {
 
 	private Connection connection;
-	
+
 	public UserDao() {
 		try {
 			connection = ConnectionFactory.getInstance().getConnection();
@@ -19,17 +19,15 @@ public class UserDao implements IDao<User> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public Optional<User> getById(String username) {
 
 		try (ResultSet entries = connection.createStatement().executeQuery("SELECT * FROM user")) {
 
 			while (entries.next()) {
-//				Person person = new Person(entries.getInt("id"), entries.getString("firstname"),
-//						entries.getString("lastname"), entries.getString("email"));
-//
-//				people.put(String.valueOf(person.getId()), person);
+				User user = new User(entries.getString("Username"), entries.getString("Password"));
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -39,25 +37,21 @@ public class UserDao implements IDao<User> {
 
 	@Override
 	public List<User> getAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void save(User t) {
-		// TODO Auto-generated method stub
+	public void save(User user) {
 
 	}
 
 	@Override
-	public void update(User t, String[] params) {
-		// TODO Auto-generated method stub
+	public void update(User user, String[] params) {
 
 	}
 
 	@Override
-	public void delete(User t) {
-		// TODO Auto-generated method stub
+	public void delete(User user) {
 
 	}
 

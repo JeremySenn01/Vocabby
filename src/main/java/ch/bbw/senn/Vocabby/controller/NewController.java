@@ -73,6 +73,6 @@ public class NewController implements Initializable {
 	
 	@FXML
 	private void handleCancel() {
-		
+		btCancel.getScene().getWindow().hide();
 	}
 }

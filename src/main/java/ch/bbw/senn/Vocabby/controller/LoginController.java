@@ -1,8 +1,13 @@
 package ch.bbw.senn.Vocabby.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import ch.bbw.senn.Vocabby.Set;
+import ch.bbw.senn.Vocabby.Term;
 import ch.bbw.senn.Vocabby.User;
 import ch.bbw.senn.Vocabby.ViewLoader;
 import javafx.fxml.FXML;
@@ -44,7 +49,22 @@ public class LoginController implements Initializable {
 		
 		// Log in
 		btLogin.getScene().getWindow().hide();
-		this.loader.loadMainDialog(new User(username, password, null));
+		
+		//TODO: Remove This
+		List<Set> sets = new ArrayList<>();
+		List<Term> terms = new ArrayList<>();
+		
+		terms.add(new Term("Baum", "arbre"));
+		terms.add(new Term("Mensch", "personne"));
+		terms.add(new Term("Vogel", "l'oiseau"));
+		terms.add(new Term("Augen", "les yeux"));
+		terms.add(new Term("Fuss", "le pied"));
+		
+		sets.add(new Set("Voci Teil 1", "Französisch", LocalDate.now(), terms));
+		sets.add(new Set("Voci Teil 2", "Random", LocalDate.now(), terms));
+		sets.add(new Set("Voci Teil 3", "Englisch", LocalDate.now(), terms));
+
+		loader.loadMainDialog(new User(username, password, sets));
 	}
 
 	@FXML
@@ -61,7 +81,7 @@ public class LoginController implements Initializable {
 
 			// Log in
 			btLogin.getScene().getWindow().hide();
-			this.loader.loadMainDialog(new User(username, password, null));
+			loader.loadMainDialog(new User(username, password, null));
 		}
 		
 		else {
