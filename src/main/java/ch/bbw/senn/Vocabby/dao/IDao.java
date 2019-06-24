@@ -5,13 +5,15 @@ import java.util.Optional;
 
 public interface IDao<T> {
      
-    Optional<T> getById(String username);
+    Optional<T> getById(String id);
      
-    List<T> getAll();
+    List<T> getAll(String id_fk);
      
-    void save(T t);
+    boolean save(T t);
      
     void update(T t, String[] params);
      
-    void delete(T t);
+    boolean delete(T t);
+    
+    void deleteAll(List<T> t);
 }

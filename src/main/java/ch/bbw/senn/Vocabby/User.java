@@ -1,9 +1,11 @@
 package ch.bbw.senn.Vocabby;
 
 import java.util.List;
+import java.util.UUID;
 
 public class User {
 
+	private UUID id;
 	private String username;
 	private String password;
 	private List<Set> sets;
@@ -13,6 +15,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.sets = sets;
+		this.id = UUID.randomUUID();
 	}
 
 	public String getUsername() {
@@ -46,5 +49,14 @@ public class User {
 	public void removeSet(Set set) {
 		this.sets.remove(set);
 	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
 	
 }

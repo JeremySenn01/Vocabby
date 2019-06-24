@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import ch.bbw.senn.Vocabby.Set;
 import ch.bbw.senn.Vocabby.Term;
@@ -50,7 +51,7 @@ public class NewController implements Initializable {
 
 	@FXML
 	private void handleCreateSet() {
-		Set newSet = new Set(tfTitle.getText(), tfTheme.getText(), LocalDate.now(), this.terms);
+		Set newSet = new Set(UUID.randomUUID(), tfTitle.getText(), tfTheme.getText(), LocalDate.now(), this.terms);
 		MainController.addNewSet(newSet);
 		btCreateSet.getScene().getWindow().hide();
 
@@ -60,7 +61,7 @@ public class NewController implements Initializable {
 	private void handleAddTerm() {
 		String original = tfOriginal.getText();
 		String translated = tfTranslated.getText();
-		Term newTerm = new Term(original, translated);
+		Term newTerm = new Term(UUID.randomUUID(), original, translated);
 		
 		this.terms.add(newTerm);
 	}

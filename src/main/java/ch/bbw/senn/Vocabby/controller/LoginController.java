@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import ch.bbw.senn.Vocabby.Set;
 import ch.bbw.senn.Vocabby.Term;
@@ -54,15 +55,15 @@ public class LoginController implements Initializable {
 		List<Set> sets = new ArrayList<>();
 		List<Term> terms = new ArrayList<>();
 		
-		terms.add(new Term("Baum", "arbre"));
-		terms.add(new Term("Mensch", "personne"));
-		terms.add(new Term("Vogel", "l'oiseau"));
-		terms.add(new Term("Augen", "les yeux"));
-		terms.add(new Term("Fuss", "le pied"));
+		terms.add(new Term(UUID.randomUUID(), "Baum", "arbre"));
+		terms.add(new Term(UUID.randomUUID(),"Mensch", "personne"));
+		terms.add(new Term(UUID.randomUUID(),"Vogel", "l'oiseau"));
+		terms.add(new Term(UUID.randomUUID(),"Augen", "les yeux"));
+		terms.add(new Term(UUID.randomUUID(),"Fuss", "le pied"));
 		
-		sets.add(new Set("Voci Teil 1", "Französisch", LocalDate.now(), terms));
-		sets.add(new Set("Voci Teil 2", "Random", LocalDate.now(), terms));
-		sets.add(new Set("Voci Teil 3", "Englisch", LocalDate.now(), terms));
+		sets.add(new Set(UUID.randomUUID(),"Voci Teil 1", "Französisch", LocalDate.now(), terms));
+		sets.add(new Set(UUID.randomUUID(),"Voci Teil 2", "Random", LocalDate.now(), terms));
+		sets.add(new Set(UUID.randomUUID(),"Voci Teil 3", "Englisch", LocalDate.now(), terms));
 
 		loader.loadMainDialog(new User(username, password, sets));
 	}

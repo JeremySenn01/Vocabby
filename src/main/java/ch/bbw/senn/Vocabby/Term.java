@@ -1,14 +1,19 @@
 package ch.bbw.senn.Vocabby;
 
+import java.util.UUID;
+
 public class Term {
 
+	private UUID id;
+	private UUID id_fk;
 	private String original;
 	private String translated;
 
-	public Term(String original, String translated) {
+	public Term(UUID id_fk, String original, String translated) {
 		super();
 		this.original = original;
 		this.translated = translated;
+		this.id = UUID.randomUUID();
 	}
 
 	public String getOriginal() {
@@ -26,10 +31,26 @@ public class Term {
 	public void setTranslated(String translated) {
 		this.translated = translated;
 	}
-	
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public UUID getId_fk() {
+		return id_fk;
+	}
+
+	public void setId_fk(UUID id_fk) {
+		this.id_fk = id_fk;
+	}
+
 	@Override
 	public String toString() {
-		return this.original + " => " + this.translated; 
+		return this.original + " => " + this.translated;
 	}
 
 }
