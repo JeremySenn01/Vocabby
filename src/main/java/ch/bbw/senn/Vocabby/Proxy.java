@@ -22,7 +22,7 @@ public class Proxy {
 	
 	public Optional<User> getUser(String username, String password) {
 		
-		Optional<User> receivedUser = userDao.getByUsernameAndPassword(username, password);
+		Optional<User> receivedUser = ((UserDao) userDao).getByUsernameAndPassword(username, password);
 		//Found user with given username and password
 		if (receivedUser.isPresent()) {
 			User foundUser = receivedUser.get();

@@ -22,10 +22,8 @@ public class UserDao implements IDao<User> {
 			statement.setString(2, password);
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				System.out.println("resultSet has got a user");
 				long timeStart = System.currentTimeMillis();
 				User user = new User(resultSet.getString("Username"), resultSet.getString("Password"), null, UUID.fromString(resultSet.getString("Id")));
-				System.out.println("difference time (1): " + (System.currentTimeMillis()-timeStart));
 				return Optional.of(user);
 
 			}

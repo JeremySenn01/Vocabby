@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
 			tError.setText("Username or password incorrect");
 		}
 
-//		// TODO: Remove This
+//		// TODO: Use this if you are too lazy to create new Sets
 //		List<Set> sets = new ArrayList<>();
 //		List<Term> terms = new ArrayList<>();
 //
