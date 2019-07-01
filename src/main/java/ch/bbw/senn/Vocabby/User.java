@@ -10,12 +10,12 @@ public class User {
 	private String password;
 	private List<Set> sets;
 	
-	public User(String username, String password, List<Set> sets) {
+	public User(String username, String password, List<Set> sets, UUID id) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.sets = sets;
-		this.id = UUID.randomUUID();
+		this.id = id;
 	}
 
 	public String getUsername() {

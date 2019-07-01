@@ -9,11 +9,12 @@ public class Term {
 	private String original;
 	private String translated;
 
-	public Term(UUID id_fk, String original, String translated) {
+	public Term(UUID id, UUID id_fk, String original, String translated) {
 		super();
 		this.original = original;
 		this.translated = translated;
-		this.id = UUID.randomUUID();
+		this.id_fk = id_fk;
+		this.id = id;
 	}
 
 	public String getOriginal() {

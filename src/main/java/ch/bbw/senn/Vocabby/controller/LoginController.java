@@ -1,14 +1,11 @@
 package ch.bbw.senn.Vocabby.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
-import ch.bbw.senn.Vocabby.Set;
-import ch.bbw.senn.Vocabby.Term;
+import ch.bbw.senn.Vocabby.Proxy;
 import ch.bbw.senn.Vocabby.User;
 import ch.bbw.senn.Vocabby.ViewLoader;
 import javafx.fxml.FXML;
@@ -32,10 +29,12 @@ public class LoginController implements Initializable {
 	private Text tError;
 
 	private ViewLoader loader;
+	private Proxy proxy;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.loader = new ViewLoader();
+		this.proxy = new Proxy();
 	}
 
 	@FXML
@@ -45,27 +44,30 @@ public class LoginController implements Initializable {
 		String password = tfPassword.getText();
 
 		// Search Database -----------
+		Optional<User> foundUser = proxy.getUser(username, password);
+		if (foundUser.isPresent()) {
+			User user = foundUser.get();
+			// Log in
+			btLogin.getScene().getWindow().hide();
+			loader.loadMainDialog(user);
+		} else {
+			tError.setText("Username or password incorrect");
+		}
 
-		// ---------------------------
-		
-		// Log in
-		btLogin.getScene().getWindow().hide();
-		
-		//TODO: Remove This
-		List<Set> sets = new ArrayList<>();
-		List<Term> terms = new ArrayList<>();
-		
-		terms.add(new Term(UUID.randomUUID(), "Baum", "arbre"));
-		terms.add(new Term(UUID.randomUUID(),"Mensch", "personne"));
-		terms.add(new Term(UUID.randomUUID(),"Vogel", "l'oiseau"));
-		terms.add(new Term(UUID.randomUUID(),"Augen", "les yeux"));
-		terms.add(new Term(UUID.randomUUID(),"Fuss", "le pied"));
-		
-		sets.add(new Set(UUID.randomUUID(),"Voci Teil 1", "Französisch", LocalDate.now(), terms));
-		sets.add(new Set(UUID.randomUUID(),"Voci Teil 2", "Random", LocalDate.now(), terms));
-		sets.add(new Set(UUID.randomUUID(),"Voci Teil 3", "Englisch", LocalDate.now(), terms));
+//		// TODO: Remove This
+//		List<Set> sets = new ArrayList<>();
+//		List<Term> terms = new ArrayList<>();
+//
+//		terms.add(new Term(UUID.randomUUID(), "Baum", "arbre"));
+//		terms.add(new Term(UUID.randomUUID(), "Mensch", "personne"));
+//		terms.add(new Term(UUID.randomUUID(), "Vogel", "l'oiseau"));
+//		terms.add(new Term(UUID.randomUUID(), "Augen", "les yeux"));
+//		terms.add(new Term(UUID.randomUUID(), "Fuss", "le pied"));
+//
+//		sets.add(new Set(UUID.randomUUID(), "Voci Teil 1", "Französisch", LocalDate.now(), terms));
+//		sets.add(new Set(UUID.randomUUID(), "Voci Teil 2", "Random", LocalDate.now(), terms));
+//		sets.add(new Set(UUID.randomUUID(), "Voci Teil 3", "Englisch", LocalDate.now(), terms));
 
-		loader.loadMainDialog(new User(username, password, sets));
 	}
 
 	@FXML
@@ -75,16 +77,18 @@ public class LoginController implements Initializable {
 		String password = tfPassword.getText();
 
 		if (username.length() >= 2 && username.length() <= 30 && password.length() >= 2) {
-
-			// Insert into Database -----------
-
-			// --------------------------------
-
-			// Log in
-			btLogin.getScene().getWindow().hide();
-			loader.loadMainDialog(new User(username, password, null));
+			User newUser = new User(username, password, null, UUID.randomUUID());
+			// Insert into Database
+			boolean createdUser = proxy.createUser(newUser);
+			if (createdUser) {
+				// Log in
+				btLogin.getScene().getWindow().hide();
+				loader.loadMainDialog(newUser);
+			} else {
+				tError.setText("Couldn't create Profile");
+			}
 		}
-		
+
 		else {
 			tError.setText("Username or Password not sufficient");
 		}

@@ -3,6 +3,7 @@ package ch.bbw.senn.Vocabby;
 import java.io.IOException;
 
 import ch.bbw.senn.Vocabby.controller.MainController;
+import ch.bbw.senn.Vocabby.controller.NewController;
 import ch.bbw.senn.Vocabby.controller.StudyController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -36,7 +37,7 @@ public class ViewLoader {
 
 	}
 
-	public void loadNewSetDialog() {
+	public void loadNewSetDialog(User user) {
 
 		// Create FXMLLoader
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/New.fxml"));
@@ -51,6 +52,9 @@ public class ViewLoader {
 			e.printStackTrace();
 		}
 
+		NewController controller = loader.<NewController>getController();
+		controller.initController(user);
+		
 		stage.show();
 	}
 	

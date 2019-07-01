@@ -13,6 +13,33 @@ import ch.bbw.senn.Vocabby.User;
 
 public class UserDao implements IDao<User> {
 
+	public Optional<User> getByUsernameAndPassword(String username, String password) {
+		ResultSet resultSet = null;
+		try (Connection connection = ConnectionFactory.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE Username = ? AND Password = ?")) {
+
+			statement.setString(1, username);
+			statement.setString(2, password);
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				System.out.println("resultSet has got a user");
+				long timeStart = System.currentTimeMillis();
+				User user = new User(resultSet.getString("Username"), resultSet.getString("Password"), null, UUID.fromString(resultSet.getString("Id")));
+				System.out.println("difference time (1): " + (System.currentTimeMillis()-timeStart));
+				return Optional.of(user);
+
+			}
+			statement.close();
+			resultSet.close();
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("didn't find user");
+		return Optional.empty();
+	}
+	
 	@Override
 	public Optional<User> getById(String id) {
 		ResultSet resultSet = null;
@@ -22,7 +49,7 @@ public class UserDao implements IDao<User> {
 			statement.setString(1, id);
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				User user = new User(resultSet.getString("Username"), resultSet.getString("Password"), null);
+				User user = new User(resultSet.getString("Username"), resultSet.getString("Password"), null, UUID.fromString(resultSet.getString("Id")));
 				user.setId(UUID.fromString(id));
 				;
 				return Optional.of(user);
@@ -45,7 +72,7 @@ public class UserDao implements IDao<User> {
 				ResultSet result = connection.createStatement().executeQuery("SELECT * FROM user")) {
 
 			while (result.next()) {
-				User user = new User(result.getString("Username"), result.getString("Password"), null);
+				User user = new User(result.getString("Username"), result.getString("Password"), null, UUID.fromString(result.getString("Id")));
 				user.setId(UUID.fromString(result.getString("Id")));
 				userResult.add(user);
 			}
@@ -99,8 +126,8 @@ public class UserDao implements IDao<User> {
 	}
 
 	@Override
-	public void deleteAll(List<User> t) {
+	public boolean deleteAll(List<User> t) {
+		return false;
 		
 	}
-
 }

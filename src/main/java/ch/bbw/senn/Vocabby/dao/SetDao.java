@@ -23,8 +23,8 @@ public class SetDao implements IDao<Set> {
 			statement.setString(1, id);
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				Set set = new Set(UUID.fromString(resultSet.getString("UserId_FK")), resultSet.getString("Name"), resultSet.getString("Theme"),
-						resultSet.getDate("CreationDate").toLocalDate(), null);
+				Set set = new Set(UUID.fromString(resultSet.getString("Id")), UUID.fromString(resultSet.getString("UserId_FK")), resultSet.getString("Name"),
+						resultSet.getString("Theme"), resultSet.getDate("CreationDate").toLocalDate(), null);
 				set.setId(UUID.fromString(id));
 
 				return Optional.of(set);
@@ -44,14 +44,15 @@ public class SetDao implements IDao<Set> {
 	public List<Set> getAll(String userId_FK) {
 		List<Set> setResult = new ArrayList<>();
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM StudySet WHERE UserId_FK = ?")) {
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM StudySet WHERE UserId_FK = ?")) {
 
 			statement.setString(1, userId_FK);
 			ResultSet resultSet = statement.executeQuery();
-			
+
 			while (resultSet.next()) {
-				Set set = new Set(UUID.fromString(resultSet.getString("UserId_FK")), resultSet.getString("Name"), resultSet.getString("Theme"),
-						resultSet.getDate("CreationDate").toLocalDate(), null);
+				Set set = new Set(UUID.fromString(resultSet.getString("Id")), UUID.fromString(resultSet.getString("UserId_FK")), resultSet.getString("Name"),
+						resultSet.getString("Theme"), resultSet.getDate("CreationDate").toLocalDate(), null);
 				set.setId(UUID.fromString(resultSet.getString("Id")));
 				setResult.add(set);
 			}
@@ -73,12 +74,13 @@ public class SetDao implements IDao<Set> {
 		}
 
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("INSERT INTO StudySet VALUES (?,?,?,?)")) {
+				PreparedStatement statement = connection.prepareStatement("INSERT INTO StudySet VALUES (?,?,?,?,?)")) {
 
 			statement.setString(1, set.getId().toString());
 			statement.setString(2, set.getName());
 			statement.setString(3, set.getTheme());
-			statement.setDate(3, Date.valueOf(set.getCreationDate()));
+			statement.setDate(4, Date.valueOf(set.getCreationDate()));
+			statement.setString(5, set.getId_fk().toString());
 
 			statement.execute();
 
@@ -91,7 +93,6 @@ public class SetDao implements IDao<Set> {
 
 		}
 		return false;
-
 	}
 
 	@Override
@@ -105,9 +106,9 @@ public class SetDao implements IDao<Set> {
 				PreparedStatement statement = connection.prepareStatement("DELETE FROM StudySet WHERE Id = ?")) {
 
 			statement.setString(1, set.getId().toString());
-			statement.executeQuery();
-
-			return statement.executeUpdate() > 0;
+			int result = statement.executeUpdate();
+			System.out.println("delete Set: " + result);
+			return result > 0;
 		}
 
 		catch (SQLException e) {
@@ -117,8 +118,8 @@ public class SetDao implements IDao<Set> {
 	}
 
 	@Override
-	public void deleteAll(List<Set> t) {
-		
+	public boolean deleteAll(List<Set> t) {
+		return false;
 	}
 
 }

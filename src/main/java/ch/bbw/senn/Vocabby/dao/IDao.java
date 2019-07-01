@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface IDao<T> {
      
     Optional<T> getById(String id);
-     
+         
     List<T> getAll(String id_fk);
      
     boolean save(T t);
@@ -15,5 +15,5 @@ public interface IDao<T> {
      
     boolean delete(T t);
     
-    void deleteAll(List<T> t);
+    boolean deleteAll(List<T> t);
 }

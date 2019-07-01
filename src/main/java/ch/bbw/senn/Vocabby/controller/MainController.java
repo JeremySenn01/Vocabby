@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import ch.bbw.senn.Vocabby.Proxy;
 import ch.bbw.senn.Vocabby.Set;
 import ch.bbw.senn.Vocabby.SetRenderer;
 import ch.bbw.senn.Vocabby.User;
@@ -34,14 +35,18 @@ public class MainController implements Initializable {
 	private ListView<Set> lvSets;
 	@FXML
 	private Text tUsername;
+	@FXML
+	private Text tError;
 
 	private static ObservableList<Set> sets;
 	private ViewLoader loader;
+	private Proxy proxy;
+	private User user;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		loader = new ViewLoader();
-
+		proxy = new Proxy();
 		lvSets.setCellFactory(new SetRenderer());
 
 		lvSets.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -85,13 +90,14 @@ public class MainController implements Initializable {
 		} else {
 			sets = FXCollections.observableArrayList(user.getSets());
 		}
+		this.user = user;
 		tUsername.setText(user.getUsername() + "'s Sets");
 		lvSets.setItems((ObservableList<Set>) sets);
 	}
 
 	@FXML
 	private void handleNewSet() {
-		loader.loadNewSetDialog();
+		loader.loadNewSetDialog(this.user);
 	}
 
 	@FXML
@@ -115,11 +121,19 @@ public class MainController implements Initializable {
 
 		Optional<ButtonType> result = confirmation.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			sets.remove(selected);
-
+			
 			// Delete the Set from Database
+			boolean deletedSet = proxy.deleteSet(selected);
+			
+			if (deletedSet) {
+				sets.remove(selected);				
+			}
+			else {
+				tError.setText("Couldn't delete the Set :(");
+			}
+			
 
-			// Delete the Set from Database
+
 		}
 	}
 }

@@ -14,7 +14,7 @@ public class ConnectionFactory {
 	public Connection getConnection() throws SQLException {
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost/vocabby", "root", "");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Vocabby", "root", "");
 		}
 		catch (Exception e) {
 			e.printStackTrace();

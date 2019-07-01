@@ -22,7 +22,8 @@ public class TermDao implements IDao<Term> {
 			statement.setString(1, id);
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				Term term = new Term(UUID.fromString(resultSet.getString("SetId_FK")), resultSet.getString("Original"), resultSet.getString("Translated"));
+				Term term = new Term(UUID.fromString(resultSet.getString("Id")), UUID.fromString(resultSet.getString("SetId_FK")), resultSet.getString("Original"),
+						resultSet.getString("Translated"));
 				term.setId(UUID.fromString(id));
 
 				return Optional.of(term);
@@ -46,7 +47,8 @@ public class TermDao implements IDao<Term> {
 				ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM Card")) {
 
 			while (resultSet.next()) {
-				Term term = new Term(UUID.fromString(resultSet.getString("SetId_FK")), resultSet.getString("Original"), resultSet.getString("Translated"));
+				Term term = new Term(UUID.fromString(resultSet.getString("Id")), UUID.fromString(resultSet.getString("SetId_FK")), resultSet.getString("Original"),
+						resultSet.getString("Translated"));
 				term.setId(UUID.fromString(resultSet.getString("Id")));
 				termResult.add(term);
 			}
@@ -68,11 +70,12 @@ public class TermDao implements IDao<Term> {
 		}
 
 		try (Connection connection = ConnectionFactory.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("INSERT INTO Card VALUES (?,?,?)")) {
+				PreparedStatement statement = connection.prepareStatement("INSERT INTO Card VALUES (?,?,?,?)")) {
 
 			statement.setString(1, term.getId().toString());
 			statement.setString(2, term.getOriginal());
 			statement.setString(3, term.getTranslated());
+			statement.setString(4, term.getId_fk().toString());
 
 			statement.execute();
 
@@ -99,7 +102,6 @@ public class TermDao implements IDao<Term> {
 				PreparedStatement statement = connection.prepareStatement("DELETE FROM Card WHERE Id = ?")) {
 
 			statement.setString(1, term.getId().toString());
-			statement.executeQuery();
 
 			return statement.executeUpdate() > 0;
 		}
@@ -111,7 +113,25 @@ public class TermDao implements IDao<Term> {
 	}
 
 	@Override
-	public void deleteAll(List<Term> t) {
-		
+	public boolean deleteAll(List<Term> terms) {
+
+		if (terms.size() > 0) {
+
+			try (Connection connection = ConnectionFactory.getInstance().getConnection();
+					PreparedStatement statement = connection.prepareStatement("DELETE FROM Card WHERE SetId_FK = ?")) {
+
+				statement.setString(1, terms.get(0).getId_fk().toString());
+
+				int result = statement.executeUpdate();
+				System.out.println("delete Terms: " + result);
+				return result > 0;
+			}
+
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
+
 }

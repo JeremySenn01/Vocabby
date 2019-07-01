@@ -19,12 +19,12 @@
    <children>
       <Text fx:id="tUsername" fill="#2c5ccd" layoutX="71.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="431.21875">
          <font>
-            <Font name="Baskerville" size="51.0" />
+            <Font size="41.0" />
          </font>
       </Text>
       <Button fx:id="btNewSet" layoutX="545.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleNewSet" prefHeight="58.0" prefWidth="123.0" text="New Set" />
       <Line endX="317.0" layoutX="375.0" layoutY="121.0" startX="-304.0" />
-      <ListView fx:id="lvSets" layoutX="85.0" layoutY="141.0" prefHeight="323.0" prefWidth="597.0" />
+      <ListView fx:id="lvSets" layoutX="85.0" layoutY="141.0" prefHeight="305.0" prefWidth="597.0" />
       <MenuBar fx:id="mbMenu" layoutX="-4.0" prefHeight="29.0" prefWidth="750.0">
         <menus>
           <Menu fx:id="mFile" mnemonicParsing="false" text="File">
@@ -40,5 +40,10 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Text fx:id="tError" fill="RED" layoutX="85.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="597.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

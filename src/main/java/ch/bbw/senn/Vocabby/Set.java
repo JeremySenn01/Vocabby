@@ -13,14 +13,14 @@ public class Set {
 	private LocalDate creationDate;
 	private List<Term> terms;
 
-	public Set(UUID id_fk, String name, String theme, LocalDate creationDate, List<Term> terms) {
+	public Set(UUID id, UUID id_fk, String name, String theme, LocalDate creationDate, List<Term> terms) {
 		super();
 		this.id_fk = id_fk;
 		this.name = name;
 		this.creationDate = creationDate;
 		this.terms = terms;
 		this.theme = theme;
-		this.id = UUID.randomUUID();
+		this.id = id;
 	}
 
 	public String getName() {
