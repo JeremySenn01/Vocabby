@@ -24,7 +24,7 @@
       <Button fx:id="btRegister" layoutX="324.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="27.0" prefWidth="90.0" text="register" />
       <Line endX="292.5" layoutX="375.0" layoutY="106.0" startX="-304.0" />
       <Text layoutX="305.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© Jeremy Senn 2019" />
-      <Text fx:id="tError" fill="RED" layoutX="240.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="269.9999953508377">
+      <Text fx:id="tError" fill="RED" layoutX="107.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="523.9999953508377">
          <font>
             <Font size="22.0" />
          </font>

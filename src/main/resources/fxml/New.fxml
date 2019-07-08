@@ -21,25 +21,6 @@
       <TextField fx:id="tfOriginal" layoutX="277.0" layoutY="157.0" prefHeight="27.0" prefWidth="279.0" promptText="Baum" />
       <TextField fx:id="tfTranslated" layoutX="277.0" layoutY="195.0" prefHeight="27.0" prefWidth="279.0" promptText="tree" />
       <Button fx:id="btCreateSet" layoutX="556.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleCreateSet" prefHeight="42.0" prefWidth="133.0" text="Create Set" />
-      <MenuBar fx:id="mbMenu" prefHeight="29.0" prefWidth="750.0">
-         <menus>
-            <Menu fx:id="mFile" mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-            </Menu>
-            <Menu fx:id="mEdit" mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-            </Menu>
-            <Menu fx:id="mHelp" mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <TextField fx:id="tfTitle" layoutX="277.0" layoutY="57.0" prefHeight="29.0" prefWidth="279.0" promptText="Vocabulary File 1" />
       <TextField fx:id="tfTheme" layoutX="277.0" layoutY="93.0" prefHeight="27.0" prefWidth="279.0" promptText="English" />
       <Text layoutX="200.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="64.21875">

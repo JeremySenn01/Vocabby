@@ -1,9 +1,12 @@
 package ch.bbw.senn.Vocabby.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import ch.bbw.senn.Vocabby.FileManager;
 import ch.bbw.senn.Vocabby.Proxy;
 import ch.bbw.senn.Vocabby.Set;
 import ch.bbw.senn.Vocabby.SetRenderer;
@@ -24,6 +27,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class MainController implements Initializable {
 
@@ -121,19 +126,47 @@ public class MainController implements Initializable {
 
 		Optional<ButtonType> result = confirmation.showAndWait();
 		if (result.get() == ButtonType.OK) {
-			
+
 			// Delete the Set from Database
 			boolean deletedSet = proxy.deleteSet(selected);
-			
+
 			if (deletedSet) {
-				sets.remove(selected);				
-			}
-			else {
+				sets.remove(selected);
+			} else {
 				tError.setText("Couldn't delete the Set :(");
 			}
-			
-
 
 		}
+	}
+
+	@FXML
+	public void handleWriteSet() throws IOException {
+		Set selected = lvSets.getSelectionModel().getSelectedItem();
+		if (selected != null) {
+			Alert message = new Alert(AlertType.INFORMATION);
+			message.setTitle("Vocabby");
+			if (!FileManager.writeSetToFile(selected)) {
+				message.setHeaderText("File Couldn't be created");
+				message.setContentText("The Set '" + selected.getName() + "' couldn't be written into a file");
+			} else {
+				message.setHeaderText("File created");
+				message.setContentText("The Set '" + selected.getName() + "' was successfully written into a file\n" + "Directory: '/downloads'");
+
+			}
+			message.show();
+		}
+	}
+	
+	//TODO: Finish implementing this method / feature
+	@FXML
+	public void handleImportSet() throws IOException {
+		 FileChooser fileChooser = new FileChooser();
+		 fileChooser.setTitle("Open Resource File");
+		 fileChooser.getExtensionFilters().addAll(
+		         new ExtensionFilter("Text Files", "*.txt"));
+		 File selectedFile = fileChooser.showOpenDialog(tError.getScene().getWindow());
+		 if (selectedFile != null) {
+		   	FileManager.importSetFromTxtFile(selectedFile, user.getId());
+		 }
 	}
 }

@@ -1,6 +1,8 @@
 package ch.bbw.senn.Vocabby.controller;
 
 import java.net.URL;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -51,7 +53,10 @@ public class NewController implements Initializable {
 		terms = FXCollections.observableArrayList();
 		lvTerms.setItems(terms);
 		proxy = new Proxy();
+		Instant start = Instant.now();
 		setId = UUID.randomUUID();
+		Instant stop = Instant.now();
+		System.out.println("duration : " + Duration.between(start, stop));
 	}
 
 	public void initController(User user) {
@@ -78,6 +83,8 @@ public class NewController implements Initializable {
 		Term newTerm = new Term(UUID.randomUUID(), this.setId, original, translated);
 
 		this.terms.add(newTerm);
+		tfOriginal.setText("");
+		tfOriginal.setText("");
 	}
 
 	@FXML

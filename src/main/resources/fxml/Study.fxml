@@ -23,25 +23,6 @@
          </font>
       </Text>
       <Line endX="292.5" layoutX="381.0" layoutY="141.0" startX="-304.0" />
-      <MenuBar fx:id="mbMenu" prefHeight="29.0" prefWidth="750.0">
-         <menus>
-            <Menu fx:id="mFile" mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
-               </items>
-            </Menu>
-            <Menu fx:id="mEdit" mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-               </items>
-            </Menu>
-            <Menu fx:id="mHelp" mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <Text fx:id="tTheme" fill="#424a5d" layoutX="164.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="197.2187541127205">
          <font>
             <Font size="25.0" />

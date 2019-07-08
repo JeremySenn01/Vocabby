@@ -31,6 +31,8 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleNewSet" text="New Set     (Ctr+N)" />
                   <MenuItem mnemonicParsing="false" onAction="#handleDeleteSet" text="Delete Set     (Ctr+D)" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleWriteSet" text="Print Set to Textfile" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleImportSet" text="Import set from Textfile" />
             </items>
           </Menu>
           <Menu fx:id="mHelp" mnemonicParsing="false" text="Application">
